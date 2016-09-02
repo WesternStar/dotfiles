@@ -1,23 +1,38 @@
-"mark syntax errors with :signs
-let g:syntastic_enable_signs=1
-"automatically jump to the error when saving the file
-let g:syntastic_auto_jump=0
-"show the error list automatically
-let g:syntastic_auto_loc_list=1
-"don't care about warnings
-let g:syntastic_quiet_messages = {'level': 'warnings'}
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+"General Settings
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_warning_symbol = "⚠"
 
-" I have no idea why this is not working, as it used to
-" be a part of syntastic code but was apparently removed
-" This will make syntastic find the correct ruby specified by mri
-function! s:FindRubyExec()
-    if executable("rvm")
-        return system("rvm tools identifier")
-    endif
 
-    return "ruby"
-endfunction
 
-if !exists("g:syntastic_ruby_exec")
-    let g:syntastic_ruby_exec = s:FindRubyExec()
-endif
+" Cpp check info
+"   Header Config
+let g:syntastic_cpp_check_header = 1
+let g:syntastic_cpp_no_include_search = 1
+let g:syntastic_cpp_no_default_include_dirs = 1
+let g:syntastic_cpp_auto_refresh_includes = 1
+let g:syntastic_cpp_checkers=['clang_tidy','clang_check']
+
+let g:syntastic_c_check_header = 1
+let g:syntastic_c_no_include_search = 1
+let g:syntastic_c_no_default_include_dirs = 1
+let g:syntastic_c_auto_refresh_includes = 1
+let g:syntastic_c_checkers=['clang_tidy','clang_check']
+
+
+
+
+
+" Cmake compilation database for clang_check
+let g:syntastic_cpp_clang_check_post_args = ""
+let g:syntastic_c_clang_check_post_args = ""
+
+" Cmake compilation database for clang_tidy
+let g:syntastic_cpp_clang_tidy_post_args = ""
+let g:syntastic_c_clang_tidy_post_args = ""

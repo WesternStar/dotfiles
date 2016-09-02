@@ -1,0 +1,114 @@
+if has('vim_starting')
+  if &compatible
+    set nocompatible               " Be iMproved
+  endif
+
+  " Required:
+  set runtimepath+=/home/west/.vim/bundle/neobundle.vim/
+endif
+
+" Required:
+call neobundle#begin(expand('/home/west/.vim/bundle'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+
+" Add or remove your Bundles here:
+NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'ervandew/supertab'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-fireplace'
+NeoBundle 'tpope/vim-sensible'
+NeoBundle 'guns/vim-clojure-static'
+NeoBundle 'ctrlpvim/ctrlp.vim'
+NeoBundle 'flazz/vim-colorschemes'
+NeoBundle 'jceb/vim-orgmode'
+NeoBundle 'davidoc/taskpaper.vim'
+NeoBundle 'rust-lang/rust.vim'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'jmcantrell/vim-journal'
+NeoBundle 'itchyny/calendar.vim'
+NeoBundle 'jamessan/vim-gnupg'
+NeoBundle 'klen/python-mode'
+NeoBundle 'fatih/vim-go'
+NeoBundle 'dag/vim2hs'
+NeoBundle 'mileszs/ack.vim'
+NeoBundle 'tmux-plugins/vim-tmux-focus-events'
+NeoBundle 'tmux-plugins/vim-tmux'
+NeoBundle 'sbl/scvim'
+NeoBundle 'pangloss/vim-javascript'
+
+" You can specify revision/branch/tag.
+set t_Co=256
+
+" Required:
+call neobundle#end()
+
+" Required:
+filetype plugin indent on   " Automatically detect file types.
+syntax on                   " Syntax highlighting
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
+
+"Basic Settings
+
+"Define the leaders
+let mapleader = ","
+let maplocalleader = "\\"
+
+"Mappings for editing vimrc
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+"Abbreviations
+iabbrev crght Copyright Alvin McNair 2015, All Rights Reserved
+iabbrev @@@ alvin.mcnair@gmail.com
+
+"Key Mapping
+
+" Remap  H and L
+nnoremap H 0
+nnoremap L $
+" set jk to esc
+inoremap jk <esc> 
+" disable arrow keys
+noremap <Up> <nop>
+noremap <Down> <nop>
+noremap <Left> <nop>
+noremap <Right> <nop>
+
+set background=dark         " Assume a dark background
+scriptencoding utf-8
+"set autowrite                       " Automatically write a file when leaving a modified buffer
+set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
+set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
+set virtualedit=onemore             " Allow for cursor beyond last character
+set history=1000                    " Store a ton of history (default is 20)
+set spell                           " Spell checking on
+set hidden                          " Allow buffer switching without saving
+set iskeyword-=.                    " '.' is an end of word designator
+set iskeyword-=#                    " '#' is an end of word designator
+set iskeyword-=-                    " '-' is an end of word designator
+
+set number
+
+
+
+
+
+" Instead of reverting the cursor to the last position in the buffer, we
+    " set it to the first line when editing a git commit message
+    au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+augroup END 
+colorscheme badwolf
+" Custom Settings
+so $HOME/.vim/settings.vim
